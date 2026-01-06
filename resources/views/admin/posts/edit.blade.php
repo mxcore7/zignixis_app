@@ -43,7 +43,7 @@
 
                 <x-translatable-textarea name="excerpt" label="Extrait" :value="$post->getTranslations('excerpt')" />
 
-                <x-translatable-textarea name="content" label="Contenu" :value="$post->getTranslations('content')" :rows="10" :required="true" />
+                <x-translatable-textarea name="content" label="Contenu" :value="$post->getTranslations('content')" :rows="10" :required="true" wysiwyg />
 
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label for="featured_image" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Image à la une</label>

@@ -15,22 +15,45 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        $permissions = self::getAvailablePermissions();
+        return view('admin.users.create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        \Illuminate\Support\Facades\Log::info('User store initiated', $request->all());
 
-        $validated['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+                'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'permissions' => 'nullable|array',
+                'permissions.*' => 'string',
+            ]);
 
-        \App\Models\User::create($validated);
+            \Illuminate\Support\Facades\Log::info('Validation passed');
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès.');
+            $validated['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
+            $validated['is_active'] = $request->has('is_active');
+            $validated['permissions'] = $request->input('permissions', []);
+
+            // Handle profile photo upload
+            if ($request->hasFile('profile_photo')) {
+                $path = $request->file('profile_photo')->store('users', 'public');
+                $validated['profile_photo'] = $path;
+            }
+
+            $user = \App\Models\User::create($validated);
+            
+            \Illuminate\Support\Facades\Log::info('User created', ['id' => $user->id]);
+
+            return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès.');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error creating user: ' . $e->getMessage());
+            return back()->withInput()->with('error', 'Erreur lors de la création : ' . $e->getMessage());
+        }
     }
 
     public function show(string $id)
@@ -53,6 +76,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_active' => 'boolean',
             'permissions' => 'nullable|array',
             'permissions.*' => 'string',
@@ -66,6 +90,16 @@ class UserController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['permissions'] = $request->input('permissions', []);
+
+        // Handle profile photo upload
+        if ($request->hasFile('profile_photo')) {
+            // Delete old photo if exists
+            if ($user->profile_photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->profile_photo);
+            }
+            $path = $request->file('profile_photo')->store('users', 'public');
+            $validated['profile_photo'] = $path;
+        }
 
         $user->update($validated);
 

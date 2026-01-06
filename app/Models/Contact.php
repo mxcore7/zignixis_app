@@ -20,4 +20,20 @@ class Contact extends Model
     protected $casts = [
         'is_read' => 'boolean',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($contact) {
+            Notification::createNotification(
+                'new_contact',
+                "Nouveau message de {$contact->name} : {$contact->subject}",
+                route('admin.dashboard')
+            );
+
+            // Auto-create lead from contact
+            Lead::createFromContact($contact);
+        });
+    }
 }

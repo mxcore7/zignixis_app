@@ -3,12 +3,45 @@
 @section('title', 'Le Blog Zygnixis - Actualités & Conseils')
 
 @section('content')
-    <section class="bg-gray-50 py-12 md:py-20 border-b border-gray-200">
+    <section class="bg-primary-900 py-20 text-white">
         <div class="container-custom text-center">
-            <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary-900 mb-4">Le Blog Zygnixis</h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Conseils d'experts, actualités Odoo et tendances de la transformation digitale.
+            <h1 class="text-4xl lg:text-5xl font-display font-bold mb-6">{{ __('Le Blog Zygnixis') }}</h1>
+            <p class="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
+                {{ __('Actualités, conseils et expertises sur Odoo, la transformation digitale et la sécurité') }}
             </p>
+            
+            <!-- Search Bar -->
+            <form action="{{ route('blog') }}" method="GET" class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <input type="text" name="search" value="{{ request('search') }}" 
+                           placeholder="{{ __('Rechercher un article...') }}"
+                           class="w-full px-6 py-4 pr-32 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent-500">
+                    <button type="submit" class="absolute right-2 top-2 bg-accent-500 text-white px-6 py-2 rounded-full hover:bg-accent-600 transition-colors">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        {{ __('Rechercher') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+        <div class="container-custom py-4">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="{{ route('blog') }}" 
+                   class="px-4 py-2 rounded-full {{ !request('category') ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} transition-colors">
+                    {{ __('Tous') }}
+                </a>
+                @foreach($categories as $cat)
+                    <a href="{{ route('blog', ['category' => $cat->slug]) }}" 
+                       class="px-4 py-2 rounded-full {{ request('category') == $cat->slug ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} transition-colors">
+                        {{ $cat->name }}
+                    </a>
+                @endforeach
+            </div>
         </div>
     </section>
 

@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-8 divide-y divide-gray-200">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">
         @csrf
         @method('PUT')
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
@@ -48,6 +48,22 @@
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Confirmer le nouveau mot de passe</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                         <input type="password" name="password_confirmation" id="password_confirmation" class="max-w-lg block w-full shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                </div>
+
+                <!-- Profile Photo -->
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="profile_photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Photo de profil</label>
+                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+                        @if($user->profile_photo)
+                            <div class="mb-3">
+                                <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Photo actuelle" class="h-20 w-20 rounded-full object-cover">
+                                <p class="text-sm text-gray-500 mt-1">Photo actuelle</p>
+                            </div>
+                        @endif
+                        <input type="file" name="profile_photo" id="profile_photo" accept="image/*" class="max-w-lg block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                        <p class="mt-2 text-sm text-gray-500">JPG, PNG ou GIF (max. 2MB). Laisser vide pour ne pas changer.</p>
+                        @error('profile_photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
                 </div>
 

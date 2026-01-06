@@ -9,7 +9,9 @@
             <p class="mt-2 text-sm text-gray-700">Liste des utilisateurs ayant accès au tableau de bord.</p>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            @can('edit_users')
             <a href="{{ route('admin.users.create') }}" class="block rounded-md bg-primary-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">Ajouter un utilisateur</a>
+            @endcan
         </div>
     </div>
     
@@ -56,14 +58,16 @@
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->created_at->format('d/m/Y') }}</td>
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="text-primary-600 hover:text-primary-900 mr-4">Modifier</a>
-                                        @if(auth()->id() != $user->id)
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">Supprimer</button>
-                                            </form>
-                                        @endif
+                                        @can('edit_users')
+                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-primary-600 hover:text-primary-900 mr-4">Modifier</a>
+                                            @if(auth()->id() != $user->id)
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900">Supprimer</button>
+                                                </form>
+                                            @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

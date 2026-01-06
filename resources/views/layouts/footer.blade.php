@@ -76,9 +76,14 @@
                     <div class="mt-10 md:mt-0">
                         <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">Newsletter</h3>
                         <p class="mt-2 text-sm text-gray-300">Restez informé de nos dernières actualités.</p>
-                        <!-- Livewire component placeholder -->
-                        <!-- Livewire component -->
-                        <livewire:newsletter-subscription />
+                        <form action="{{ route('newsletter.subscribe') }}" method="POST" class="mt-4 sm:flex sm:max-w-md">
+                            @csrf
+                            <label for="email-address" class="sr-only">Adresse email</label>
+                            <input type="email" name="email" id="email-address" autocomplete="email" required class="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:w-64 sm:text-sm sm:leading-6 xl:w-full" placeholder="Entrez votre email">
+                            <div class="mt-3 sm:ml-3 sm:mt-0 sm:flex-shrink-0">
+                                <button type="submit" class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">S'abonner</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,9 @@ return new class extends Migration
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->boolean('is_active')->default(true);
+            $table->timestamp('verified_at')->nullable();
+            $table->string('status')->default('active'); // active, unsubscribed
+            $table->boolean('is_active')->default(true); // Keeping for backward compatibility if needed, or remove
             $table->timestamps();
         });
 

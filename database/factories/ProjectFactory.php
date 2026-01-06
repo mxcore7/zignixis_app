@@ -17,15 +17,19 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(4),
-            'slug' => $this->faker->slug(),
+            'title' => ['fr' => $this->faker->sentence(4), 'en' => $this->faker->sentence(4)],
+            'slug' => $this->faker->unique()->slug(),
             'client_name' => $this->faker->company(),
             'sector' => $this->faker->randomElement(['Industrie', 'Finance', 'Santé', 'Commerce']),
-            'description' => $this->faker->paragraph(),
-            'solution' => $this->faker->sentence(),
-            'results' => $this->faker->sentence(),
-            'image' => null,
+            'description' => ['fr' => $this->faker->paragraph(), 'en' => $this->faker->paragraph()],
+            'solution' => ['fr' => $this->faker->paragraph(), 'en' => $this->faker->paragraph()],
+            'results' => ['fr' => $this->faker->paragraph(), 'en' => $this->faker->paragraph()],
+            'featured_image' => null, // or a path
+            'images' => [],
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'user_id' => null, // Can be overriden
+            'status' => $this->faker->randomElement(['pending', 'in_progress', 'completed']),
+            'deadline' => $this->faker->dateTimeBetween('now', '+6 months'),
         ];
     }
 }

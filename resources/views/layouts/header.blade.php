@@ -26,6 +26,13 @@
         </div>
 
         <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4 items-center">
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-2 mr-2">
+                <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() == 'fr' ? 'text-primary-600 font-bold' : 'text-gray-500 hover:text-gray-900' }} text-sm">FR</a>
+                <span class="text-gray-300">|</span>
+                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() == 'en' ? 'text-primary-600 font-bold' : 'text-gray-500 hover:text-gray-900' }} text-sm">EN</a>
+            </div>
+
             <a href="{{ route('contact') }}" class="text-sm font-semibold leading-6 text-gray-900 group">
                 Contact <span aria-hidden="true" class="group-hover:translate-x-1 inline-block transition-transform">&rarr;</span>
             </a>
@@ -59,6 +66,12 @@
                         <a href="{{ route('projects') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Réalisations</a>
                         <a href="{{ route('blog') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
                         <a href="{{ route('contact') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact</a>
+                        
+                        <!-- Mobile Language Switcher -->
+                        <div class="py-2 flex gap-4">
+                            <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() == 'fr' ? 'text-primary-600 font-bold' : 'text-gray-500' }} text-base font-semibold">Français</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() == 'en' ? 'text-primary-600 font-bold' : 'text-gray-500' }} text-base font-semibold">English</a>
+                        </div>
                     </div>
                     <div class="py-6">
                         <a href="{{ route('contact') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Demander une démo</a>

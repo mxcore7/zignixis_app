@@ -10,10 +10,11 @@ class Subscriber extends Model
     /** @use HasFactory<\Database\Factories\SubscriberFactory> */
     protected $fillable = [
         'email',
-        'is_active',
+        'verified_at',
+        'status',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'verified_at' => 'datetime',
     ];
 }

@@ -9,21 +9,21 @@ class Post extends Model
 {
     use HasFactory, \Spatie\Translatable\HasTranslations;
 
-    public $translatable = ['title', 'excerpt', 'content'];
+    public $translatable = ['title', 'slug', 'content', 'excerpt', 'meta_title', 'meta_description', 'meta_keywords'];
 
     /** @use HasFactory<\Database\Factories\PostFactory> */
     protected $fillable = [
         'title',
         'slug',
-        'excerpt',
         'content',
-        'featured_image',
+        'excerpt',
         'category_id',
-        'author_id',
+        'featured_image',
+        'is_published',
         'published_at',
-        'views_count',
         'meta_title',
         'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

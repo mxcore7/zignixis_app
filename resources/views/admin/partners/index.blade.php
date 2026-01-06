@@ -8,12 +8,14 @@
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Partenaires</h2>
         </div>
         <div class="mt-4 flex md:ml-4 md:mt-0">
+            @can('edit_partners')
             <a href="{{ route('admin.partners.create') }}" class="ml-3 inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500">
                 <svg class="-ml-0.5 mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 Nouveau Partenaire
             </a>
+            @endcan
         </div>
     </div>
 
@@ -73,12 +75,14 @@
                                         @endif
                                     </td>
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <a href="{{ route('admin.partners.edit', $partner) }}" class="text-primary-600 hover:text-primary-900 mr-4">Modifier</a>
-                                        <form action="{{ route('admin.partners.destroy', $partner) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce partenaire ?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Supprimer</button>
-                                        </form>
+                                        @can('edit_partners')
+                                            <a href="{{ route('admin.partners.edit', $partner) }}" class="text-primary-600 hover:text-primary-900 mr-4">Modifier</a>
+                                            <form action="{{ route('admin.partners.destroy', $partner) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce partenaire ?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900">Supprimer</button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

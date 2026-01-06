@@ -20,8 +20,17 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/realizations', [App\Http\Controllers\RealizationController::class, 'index'])->name('realizations');
+Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
-// Admin Authentication Routes
+// Client Routes
+Route::prefix('client')->name('client.')->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Client\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/projects/{project}', [\App\Http\Controllers\Client\ProjectController::class, 'show'])->name('projects.show');
+    Route::resource('invoices', \App\Http\Controllers\Client\InvoiceController::class)->only(['index', 'show']);
+    Route::resource('tickets', \App\Http\Controllers\Client\TicketController::class)->only(['index', 'create', 'store']);
+});
+
+// Admin Routes (existing)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.submit');
@@ -39,6 +48,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('team-members', App\Http\Controllers\Admin\TeamMemberController::class)->middleware('permission:edit_team');
         Route::resource('odoo-modules', App\Http\Controllers\Admin\OdooModuleController::class)->middleware('permission:edit_odoo_modules');
         Route::resource('realizations', App\Http\Controllers\Admin\RealizationController::class)->middleware('permission:edit_realizations');
+        Route::resource('media', App\Http\Controllers\Admin\MediaController::class)->except(['show', 'create', 'edit'])->middleware('permission:admin');
+        Route::resource('leads', App\Http\Controllers\Admin\LeadController::class)->middleware('permission:admin');
+    
+        // Support Management
+        Route::middleware(['permission:admin'])->group(function () {
+            Route::resource('tickets', \App\Http\Controllers\Admin\TicketController::class)->only(['index', 'show']);
+            Route::post('tickets/{ticket}/reply', [\App\Http\Controllers\Admin\TicketController::class, 'reply'])->name('tickets.reply');
+            
+            // Invoices Management
+            Route::resource('invoices', \App\Http\Controllers\Admin\InvoiceController::class);
+
+            // Newsletter Management
+            Route::get('newsletter/subscribers', [\App\Http\Controllers\Admin\NewsletterController::class, 'subscribers'])->name('newsletter.subscribers');
+            Route::post('newsletter/{campaign}/send', [\App\Http\Controllers\Admin\NewsletterController::class, 'send'])->name('newsletter.send');
+            Route::resource('newsletter', \App\Http\Controllers\Admin\NewsletterController::class);
+
+            // Pages Management (Landing Pages)
+            Route::resource('pages', \App\Http\Controllers\Admin\PageController::class);
+        });
         
         Route::middleware(['permission:edit_contact_info'])->group(function () {
             Route::get('contact-info', [App\Http\Controllers\Admin\ContactInfoController::class, 'index'])->name('contact-info.index');
@@ -57,3 +85,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
+
+// Language Switcher
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'fr'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');

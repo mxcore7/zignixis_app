@@ -12,10 +12,10 @@
         </div>
 
         <div x-show="lang === 'fr'">
-            <textarea name="{{ $name }}[fr]" rows="{{ $rows }}" class="max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md" placeholder="En Français">{{ $value['fr'] ?? old($name.'.fr') }}</textarea>
+            <textarea name="{{ $name }}[fr]" id="{{ $name }}_fr" rows="{{ $rows }}" class="{{ $attributes->has('wysiwyg') ? 'tinymce' : '' }} max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md" placeholder="En Français">{{ $value['fr'] ?? old($name.'.fr') }}</textarea>
         </div>
         <div x-show="lang === 'en'" style="display: none;">
-            <textarea name="{{ $name }}[en]" rows="{{ $rows }}" class="max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md" placeholder="In English">{{ $value['en'] ?? old($name.'.en') }}</textarea>
+            <textarea name="{{ $name }}[en]" id="{{ $name }}_en" rows="{{ $rows }}" class="{{ $attributes->has('wysiwyg') ? 'tinymce' : '' }} max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md" placeholder="In English">{{ $value['en'] ?? old($name.'.en') }}</textarea>
         </div>
 
         @error($name.'.fr') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror

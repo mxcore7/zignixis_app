@@ -29,8 +29,33 @@ class Partner extends Model
     /**
      * Scope to order by order field
      */
+    /**
+     * Scope to order by order field
+     */
     public function scopeOrdered($query)
     {
         return $query->orderBy('order');
+    }
+
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo) {
+            return null;
+        }
+        
+        $url = \Illuminate\Support\Facades\Storage::url($this->logo);
+        
+        // Add cache-busting parameter based on file modification time
+        try {
+            $path = \Illuminate\Support\Facades\Storage::disk('public')->path($this->logo);
+            if (file_exists($path)) {
+                $timestamp = filemtime($path);
+                $url .= '?v=' . $timestamp;
+            }
+        } catch (\Exception $e) {
+            // Ignore errors, return URL without cache-busting
+        }
+        
+        return $url;
     }
 }

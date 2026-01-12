@@ -54,17 +54,25 @@ class PartnerController extends Controller
             'logo' => 'nullable|image|max:2048',
             'website' => 'nullable|url',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean',
         ]);
 
+        // Handle logo upload separately to avoid overwriting with null
         if ($request->hasFile('logo')) {
             // Delete old logo
             if ($partner->logo) {
-                Storage::disk('public')->delete($partner->logo);
+                try {
+                    Storage::disk('public')->delete($partner->logo);
+                } catch (\Exception $e) {
+                    // Ignore missing file error
+                }
             }
             $validated['logo'] = $request->file('logo')->store('partners', 'public');
+        } else {
+            // Remove logo from validated data to keep existing one
+            unset($validated['logo']);
         }
 
+        // Handle is_active separately (checkbox not sent when unchecked)
         $validated['is_active'] = $request->has('is_active');
 
         $partner->update($validated);
@@ -77,7 +85,11 @@ class PartnerController extends Controller
     {
         // Delete logo
         if ($partner->logo) {
-            Storage::disk('public')->delete($partner->logo);
+            try {
+                Storage::disk('public')->delete($partner->logo);
+            } catch (\Exception $e) {
+                // Ignore missing file error
+            }
         }
 
         $partner->delete();

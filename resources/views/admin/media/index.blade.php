@@ -66,16 +66,13 @@
                             </svg>
                         </div>
                     @endif
-                    <button type="button" class="absolute inset-0 focus:outline-none">
-                        <span class="sr-only">View details for {{ $item->name }}</span>
-                    </button>
                 </div>
                 <div class="p-3">
                     <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ $item->name }}</p>
                     <p class="pointer-events-none block text-sm font-medium text-gray-500">{{ $item->size_formatted }}</p>
                     <div class="mt-2 flex justify-between items-center">
                         <span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ $item->category }}</span>
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 relative z-10">
                              <!-- Copy Link -->
                             <button @click="copyToClipboard('{{ $item->url }}')" class="text-gray-400 hover:text-primary-600" title="Copier le lien">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,10 +80,10 @@
                                 </svg>
                             </button>
                             <!-- Delete -->
-                            <form action="{{ route('admin.media.destroy', $item) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');">
+                            <form action="{{ route('admin.media.destroy', $item) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr ?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-gray-400 hover:text-red-600" title="Supprimer">
+                                <button type="submit" class="text-gray-400 hover:text-red-600" title="Supprimer" onclick="event.stopPropagation();">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>

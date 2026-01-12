@@ -33,7 +33,7 @@ class Media extends Model
 
     public function getUrlAttribute()
     {
-        return asset('storage/' . $this->path);
+        return Storage::disk('public')->url($this->path);
     }
 
     public function getSizeFormattedAttribute()
@@ -55,18 +55,8 @@ class Media extends Model
         return $query->where('type', 'image');
     }
 
-    public function scopeCategory($query, $category)
+    public function scopeByCategory($query, $category)
     {
         return $query->where('category', $category);
-    }
-
-    public function delete()
-    {
-        // Delete physical file from storage
-        if (Storage::disk('public')->exists($this->path)) {
-            Storage::disk('public')->delete($this->path);
-        }
-        
-        return parent::delete();
     }
 }

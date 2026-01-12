@@ -51,7 +51,7 @@
                                 <tr>
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                         @if($partner->logo)
-                                            <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="h-10 w-10 rounded object-contain">
+                                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-10 w-10 rounded object-contain">
                                         @else
                                             <div class="h-10 w-10 rounded bg-gray-200 flex items-center justify-center">
                                                 <span class="text-gray-400 text-xs">No logo</span>

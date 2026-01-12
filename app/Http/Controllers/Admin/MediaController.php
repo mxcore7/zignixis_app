@@ -96,11 +96,43 @@ class MediaController extends Controller
 
     public function destroy(Media $media)
     {
-        $media->delete(); // Will also delete the physical file
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'Média supprimé avec succès'
-        ]);
+        try {
+            // Delete physical file manually
+            if ($media->path && Storage::disk('public')->exists($media->path)) {
+                try {
+                    Storage::disk('public')->delete($media->path);
+                } catch (\Exception $e) {
+                    \Log::error('Failed to delete physical file: ' . $e->getMessage());
+                }
+            }
+
+            // Use direct database deletion to bypass any Eloquent issues/silencing
+            $deleted = \Illuminate\Support\Facades\DB::table('media')->where('id', $media->id)->delete();
+            
+            $check = \Illuminate\Support\Facades\DB::table('media')->where('id', $media->id)->first();
+            \Log::info("Deleted result: $deleted. Item exists immediately after: " . ($check ? 'yes' : 'no'));
+
+            if ($deleted) {
+                if (request()->expectsJson()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Média supprimé avec succès'
+                    ]);
+                }
+                return redirect()->back()->with('success', 'Média supprimé avec succès');
+            } else {
+                throw new \Exception('La suppression a échoué (DB returned 0 affected rows).');
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error deleting media: ' . $e->getMessage());
+            
+            if (request()->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erreur lors de la suppression du média'
+                ], 500);
+            }
+            return redirect()->back()->with('error', 'Erreur lors de la suppression du média.');
+        }
     }
 }

@@ -31,7 +31,7 @@
                         @if($partner->logo)
                             <div>
                                 <label class="block text-sm font-medium leading-6 text-gray-900">Logo actuel</label>
-                                <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="mt-2 h-20 w-20 rounded object-contain border">
+                                <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="mt-2 h-20 w-20 rounded object-contain border">
                             </div>
                         @endif
 

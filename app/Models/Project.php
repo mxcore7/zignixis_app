@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory, \Spatie\Translatable\HasTranslations;
 
-    public $translatable = ['title', 'slug', 'description', 'solution', 'results', 'testimonial', 'meta_title', 'meta_description', 'meta_keywords'];
+    public $translatable = ['title', 'description', 'solution', 'results', 'testimonial', 'meta_title', 'meta_description', 'meta_keywords'];
 
     /** @use HasFactory<\Database\Factories\ProjectFactory> */
     protected $fillable = [

@@ -8,5 +8,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    base: '/', // <-- important, sinon URLs absolues foirent
+    base: '/',
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        hmr: {
+            host: '192.168.137.1',
+        },
+    },
+    // <-- important, sinon URLs absolues foirent
 });

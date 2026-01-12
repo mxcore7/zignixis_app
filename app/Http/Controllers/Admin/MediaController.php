@@ -65,7 +65,7 @@ class MediaController extends Controller
             $uploadedMedia[] = $media;
         }
 
-        if ($request->ajax()) {
+        if ($request->expectsJson()) {
             return response()->json([
                 'success' => true,
                 'media' => $uploadedMedia,

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->json('meta_title')->nullable()->after('content');
-            $table->json('meta_description')->nullable()->after('meta_title');
-            $table->json('meta_keywords')->nullable()->after('meta_description');
-        });
-
+        // Posts table already has meta_title and meta_description in create_blog_tables migration
+        
         Schema::table('projects', function (Blueprint $table) {
             $table->json('meta_title')->nullable()->after('results');
             $table->json('meta_description')->nullable()->after('meta_title');
@@ -29,10 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn(['meta_title', 'meta_description', 'meta_keywords']);
-        });
-
         Schema::table('projects', function (Blueprint $table) {
             $table->dropColumn(['meta_title', 'meta_description', 'meta_keywords']);
         });

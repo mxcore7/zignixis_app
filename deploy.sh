@@ -26,9 +26,13 @@ fi
 echo "Building and starting Docker containers..."
 docker-compose -f docker-compose.prod.yml up -d --build
 
-# Wait for database to be ready
+# Wait for database to be ready with proper health check
 echo "Waiting for database to be ready..."
-sleep 10
+until docker-compose -f docker-compose.prod.yml exec -T db mysqladmin ping -h localhost --silent; do
+    echo "Database is unavailable - sleeping"
+    sleep 2
+done
+echo "Database is ready!"
 
 # Generate application key if not set
 echo "Checking application key..."

@@ -3,20 +3,52 @@
 # Stop script on error
 set -e
 
-echo "Deploying application..."
+echo "==================================="
+echo "Deploying Zygnixis Laravel App"
+echo "==================================="
 
-# Pull latest changes
-git pull origin main
+# Pull latest changes (if using git)
+if [ -d .git ]; then
+    echo "Pulling latest changes from git..."
+    git pull origin main
+fi
+
+# Setup environment file if it doesn't exist
+if [ ! -f .env ]; then
+    echo "Creating .env from .env.example.production..."
+    cp .env.example.production .env
+    echo "⚠️  IMPORTANT: .env created. You may need to update DB_PASSWORD and other credentials."
+else
+    echo ".env already exists, skipping..."
+fi
 
 # Build and start containers
+echo "Building and starting Docker containers..."
 docker-compose -f docker-compose.prod.yml up -d --build
 
+# Wait for database to be ready
+echo "Waiting for database to be ready..."
+sleep 10
+
+# Generate application key if not set
+echo "Checking application key..."
+docker-compose -f docker-compose.prod.yml exec -T app php artisan key:generate --force
+
 # Run migrations
-docker-compose -f docker-compose.prod.yml exec app php artisan migrate --force
+echo "Running database migrations..."
+docker-compose -f docker-compose.prod.yml exec -T app php artisan migrate --force
 
 # Clear and cache config
-docker-compose -f docker-compose.prod.yml exec app php artisan config:cache
-docker-compose -f docker-compose.prod.yml exec app php artisan route:cache
-docker-compose -f docker-compose.prod.yml exec app php artisan view:cache
+echo "Optimizing application..."
+docker-compose -f docker-compose.prod.yml exec -T app php artisan config:cache
+docker-compose -f docker-compose.prod.yml exec -T app php artisan route:cache
+docker-compose -f docker-compose.prod.yml exec -T app php artisan view:cache
 
-echo "Deployment finished!"
+# Set proper permissions
+echo "Setting permissions..."
+docker-compose -f docker-compose.prod.yml exec -T app chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+echo "==================================="
+echo "✅ Deployment completed successfully!"
+echo "==================================="
+echo "Your application is now running at: http://163.245.207.48"

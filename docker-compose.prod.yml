@@ -10,7 +10,7 @@ services:
     restart: always
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html
+      - storage_data:/var/www/html/storage/app
     networks:
       - zygnixis_network
     environment:
@@ -24,8 +24,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./:/var/www/html
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    volumes_from:
+      - app:ro
     networks:
       - zygnixis_network
     depends_on:
@@ -51,3 +52,4 @@ networks:
 
 volumes:
   db_data:
+  storage_data:

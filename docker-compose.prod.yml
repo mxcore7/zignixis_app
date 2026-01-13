@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zygnixis/app:latest
+    container_name: zygnixis_app
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - zygnixis_network
+    environment:
+      APP_ENV: production
+      APP_DEBUG: 'false'
+
+  web:
+    image: nginx:alpine
+    container_name: zygnixis_web
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - zygnixis_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: zygnixis_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - zygnixis_network
+
+networks:
+  zygnixis_network:
+    driver: bridge
+
+volumes:
+  db_data:

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('blog_posts', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             $table->json('meta_title')->nullable()->after('content');
             $table->json('meta_description')->nullable()->after('meta_title');
             $table->json('meta_keywords')->nullable()->after('meta_description');
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('blog_posts', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             $table->dropColumn(['meta_title', 'meta_description', 'meta_keywords']);
         });
 

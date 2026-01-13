@@ -28,9 +28,16 @@ docker-compose -f docker-compose.prod.yml up -d --build
 
 # Wait for database to be ready with proper health check
 echo "Waiting for database to be ready..."
-until docker-compose -f docker-compose.prod.yml exec -T db mysqladmin ping -h localhost --silent; do
-    echo "Database is unavailable - sleeping"
-    sleep 2
+MAX_TRIES=30
+COUNT=0
+until docker-compose -f docker-compose.prod.yml exec -T db mysql -u root -p"${DB_PASSWORD:-SecurePassword123!ChangeMe}" -e "SELECT 1" >/dev/null 2>&1; do
+    COUNT=$((COUNT+1))
+    if [ $COUNT -ge $MAX_TRIES ]; then
+        echo "Database failed to become ready in time"
+        exit 1
+    fi
+    echo "Database is unavailable - sleeping (attempt $COUNT/$MAX_TRIES)"
+    sleep 3
 done
 echo "Database is ready!"
 

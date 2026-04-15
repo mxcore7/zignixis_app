@@ -37,25 +37,20 @@ ls -la public/storage
 
 ## Migration des Médias Existants
 
-Si vous avez des médias en local que vous souhaitez transférer sur le serveur de production :
+Puisque vous avez choisi de versionner vos médias dans Git :
 
-### Option 1 : Via SFTP/SCP
+1. **Sur le serveur**, il suffit de récupérer les derniers changements :
+   ```bash
+   git pull origin main
+   ```
 
-```bash
-# Depuis votre machine locale
-scp -r storage/app/public/media/* user@server:/path/to/app/storage/app/public/media/
-```
+2. **Assurez-vous** que le lien symbolique est créé :
+   ```bash
+   php artisan storage:link
+   ```
 
-### Option 2 : Via rsync
-
-```bash
-# Depuis votre machine locale
-rsync -avz storage/app/public/media/ user@server:/path/to/app/storage/app/public/media/
-```
-
-### Option 3 : Réuploader via l'Interface Admin
-
-Vous pouvez également réuploader les médias directement via l'interface d'administration de l'application.
+> [!NOTE]
+> Plus besoin de copier manuellement les fichiers via SCP/SFTP car ils sont maintenant dans votre dépôt Git.
 
 ## Vérification Post-Déploiement
 

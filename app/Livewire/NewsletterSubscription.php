@@ -19,7 +19,8 @@ class NewsletterSubscription extends Component
 
         \App\Models\Subscriber::create([
             'email' => $this->email,
-            'is_active' => true,
+            'status' => 'active',
+            'verified_at' => now(),
         ]);
 
         $this->success = true;

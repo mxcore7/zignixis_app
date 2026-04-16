@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: laravel_app
     restart: unless-stopped
-    working_dir: /var/www
+    working_dir: /var/www/html
     volumes:
-      - ./:/var/www
+      - ./:/var/www/html
     networks:
       - laravel
 
@@ -20,7 +20,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./:/var/www
+      - ./:/var/www/html
       - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
       - laravel
@@ -32,10 +32,10 @@ services:
     container_name: laravel_db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laraveluser
-      MYSQL_PASSWORD: laravelpass
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_DATABASE:-zygnixis_laravel}
+      MYSQL_USER: ${DB_USERNAME:-laraveluser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-laravelpass}
     ports:
       - "3306:3306"
     volumes:

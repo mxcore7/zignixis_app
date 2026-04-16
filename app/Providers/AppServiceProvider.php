@@ -50,8 +50,12 @@ class AppServiceProvider extends ServiceProvider
 
         // Share settings and contact info with all views
         view()->composer('*', function ($view) {
-            $settings = \App\Models\Setting::all()->keyBy('key');
-            $contactInfo = \App\Models\ContactInfo::ordered()->get()->keyBy('key');
+            $settings = cache()->remember('global_settings', 3600, function () {
+                return \App\Models\Setting::all()->keyBy('key');
+            });
+            $contactInfo = cache()->remember('global_contact_info', 3600, function () {
+                return \App\Models\ContactInfo::ordered()->get()->keyBy('key');
+            });
             
             $view->with('globalSettings', $settings);
             $view->with('globalContactInfo', $contactInfo);

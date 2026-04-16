@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory, \Spatie\Translatable\HasTranslations;
 
-    public $translatable = ['title', 'slug', 'content', 'excerpt', 'meta_title', 'meta_description', 'meta_keywords'];
+    public $translatable = ['title', 'content', 'excerpt'];
 
     /** @use HasFactory<\Database\Factories\PostFactory> */
     protected $fillable = [

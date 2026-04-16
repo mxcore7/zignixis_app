@@ -34,7 +34,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install \
     && npm run build \
-    && rm -rf node_modules
+    && rm -rf node_modules \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Expose port
 EXPOSE 9000

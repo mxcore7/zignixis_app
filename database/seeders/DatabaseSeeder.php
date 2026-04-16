@@ -16,11 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin User
-        $admin = \App\Models\User::factory()->create([
-            'name' => 'Admin Zygnixis',
-            'email' => 'admin@zygnixis.com',
-            'password' => bcrypt('password'),
-        ]);
+        $admin = \App\Models\User::updateOrCreate(
+            ['email' => 'admin@zygnixis.com'],
+            [
+                'name' => 'Admin Zygnixis',
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Categories
         $categories = [

@@ -32,7 +32,7 @@ docker compose -f docker-compose.prod.yml up -d --build
 echo "Waiting for database to be ready..."
 MAX_TRIES=30
 COUNT=0
-until docker compose -f docker-compose.prod.yml exec -T db mysql -u root -p"${DB_PASSWORD:-SecurePassword123!ChangeMe}" -e "SELECT 1" >/dev/null 2>&1; do
+until docker compose -f docker-compose.prod.yml exec -T db sh -c 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1"' >/dev/null 2>&1; do
     COUNT=$((COUNT+1))
     if [ $COUNT -ge $MAX_TRIES ]; then
         echo "Database failed to become ready in time"

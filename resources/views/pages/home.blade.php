@@ -101,9 +101,9 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div class="mb-10 lg:mb-0">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                        <!-- Placeholder for Dashboard Image -->
-                        <div class="aspect-w-16 aspect-h-10 bg-gray-800 flex items-center justify-center text-white">
-                            <span class="text-2xl font-bold text-gray-500">Odoo Dashboard Screenshot</span>
+                        <!-- Odoo Dashboard Screenshot -->
+                        <div class="aspect-w-16 aspect-h-10 bg-gray-900 flex items-center justify-center rounded-xl overflow-hidden shadow-2xl border border-gray-700">
+                            <img src="{{ asset('images/odoo_dashboard.png') }}" alt="Odoo Dashboard Interface" class="object-cover w-full h-full opacity-95 hover:opacity-100 transition-opacity duration-300">
                         </div>
                     </div>
                 </div>

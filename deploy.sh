@@ -12,10 +12,13 @@ echo ""
 echo "📦 Mise à jour du système..."
 sudo apt update && sudo apt upgrade -y
 
-# 2. Installation des dépendances systèmes et PHP
-echo "🛠️ Installation de Nginx, MySQL, Git, Unzip et PHP..."
+# 2. Installation des dépendances systèmes et PHP 8.4
+echo "🛠️ Ajout du dépôt PHP et installation de Nginx, MySQL, Git, Unzip et PHP 8.4..."
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update
 sudo apt install -y nginx mysql-server git curl unzip zip \
-    php-cli php-fpm php-mysql php-xml php-mbstring php-curl php-zip php-bcmath php-json
+    php8.4-cli php8.4-fpm php8.4-mysql php8.4-xml php8.4-mbstring php8.4-curl php8.4-zip php8.4-bcmath php8.4-json
 
 # 3. Installation de Composer (si non installé)
 if ! command -v composer &> /dev/null
@@ -27,9 +30,18 @@ fi
 
 # 4. Configuration de MySQL et Base de Données
 DB_NAME="zygnixis_laravel"
+DB_USER="zygnixis_user"
+DB_PASS="ZygnixisSecurePwd2026*"
+
 echo "🗄️ Création de la base de données '$DB_NAME'..."
 # On crée la DB si elle n'existe pas
 sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+
+echo "👤 Création de l'utilisateur dédié '$DB_USER' pour plus de sécurité..."
+sudo mysql -e "CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
+sudo mysql -e "ALTER USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';"
+sudo mysql -e "FLUSH PRIVILEGES;"
 
 # Importation du fichier SQL s'il est présent
 if [ -f "zygnixis_laravel.sql" ]; then

@@ -1,11 +1,2 @@
-* text=auto eol=lf
-
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
-
-/.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+# Forcer les sauts de ligne Linux (LF) pour les scripts bash afin d'éviter les erreurs \r sur le VPS
+*.sh text eol=lf

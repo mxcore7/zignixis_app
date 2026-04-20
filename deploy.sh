@@ -1,79 +1,65 @@
 #!/bin/bash
 
-# Stop script on error
-set -e
+# ==============================================================================
+# Script de déploiement automatique pour VPS Ubuntu/Debian
+# ==============================================================================
 
-echo "==================================="
-echo "Deploying Zygnixis Laravel App"
-echo "==================================="
-
-# Pull latest changes (if using git)
-if [ -d .git ]; then
-    echo "Pulling latest changes from git..."
-    git pull origin main
-fi
-
-# Setup environment file if it doesn't exist
-if [ ! -f .env ]; then
-    echo "Creating .env from .env.example.production..."
-    cp .env.example.production .env
-    echo "⚠️  IMPORTANT: .env created. You MUST update DB_PASSWORD and other credentials before continuing."
-    echo "Edit your .env file now, then run this script again."
-    exit 1
-else
-    echo ".env already exists, skipping..."
-fi
-
-# Build and start containers
-echo "Building and starting Docker containers..."
-docker compose -f docker-compose.prod.yml up -d --build
-
-# Wait for database to be ready with proper health check
-echo "Waiting for database to be ready..."
-MAX_TRIES=30
-COUNT=0
-until docker compose -f docker-compose.prod.yml exec -T db sh -c 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1"' >/dev/null 2>&1; do
-    COUNT=$((COUNT+1))
-    if [ $COUNT -ge $MAX_TRIES ]; then
-        echo "Database failed to become ready in time"
-        exit 1
-    fi
-    echo "Database is unavailable - sleeping (attempt $COUNT/$MAX_TRIES)"
-    sleep 3
-done
-echo "Database is ready!"
-
-# Generate application key if not set
-echo "Checking application key..."
-docker compose -f docker-compose.prod.yml exec -T app php artisan key:generate --force
-
-# Run migrations
-echo "Running database migrations..."
-docker compose -f docker-compose.prod.yml exec -T app php artisan migrate --force
-
-# Seed database (only on first deploy, use --seed flag)
-if [ "$1" = "--seed" ]; then
-    echo "Seeding database..."
-    docker compose -f docker-compose.prod.yml exec -T app php artisan db:seed --force
-fi
-
-# Create storage symlink
-echo "Creating storage symlink..."
-docker compose -f docker-compose.prod.yml exec -T app php artisan storage:link --force
-
-# Clear and cache config
-echo "Optimizing application..."
-docker compose -f docker-compose.prod.yml exec -T app php artisan config:cache
-docker compose -f docker-compose.prod.yml exec -T app php artisan route:cache
-docker compose -f docker-compose.prod.yml exec -T app php artisan view:cache
-
-# Set proper permissions
-echo "Setting permissions..."
-docker compose -f docker-compose.prod.yml exec -T app chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-echo "==================================="
-echo "✅ Deployment completed successfully!"
-echo "==================================="
-echo "Your application is now running at: http://51.222.204.97"
+echo "🚀 Début du déploiement..."
+echo "Ce script va installer PHP, MySQL, Nginx, Composer et configurer Laravel."
 echo ""
-echo "First deploy? Run: ./deploy.sh --seed"
+
+# 1. Mise à jour du système
+echo "📦 Mise à jour du système..."
+sudo apt update && sudo apt upgrade -y
+
+# 2. Installation des dépendances systèmes et PHP
+echo "🛠️ Installation de Nginx, MySQL, Git, Unzip et PHP..."
+sudo apt install -y nginx mysql-server git curl unzip zip \
+    php-cli php-fpm php-mysql php-xml php-mbstring php-curl php-zip php-bcmath php-json
+
+# 3. Installation de Composer (si non installé)
+if ! command -v composer &> /dev/null
+then
+    echo "🎵 Installation de Composer..."
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+fi
+
+# 4. Configuration de MySQL et Base de Données
+DB_NAME="zygnixis_laravel"
+echo "🗄️ Création de la base de données '$DB_NAME'..."
+# On crée la DB si elle n'existe pas
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+
+# Importation du fichier SQL s'il est présent
+if [ -f "zygnixis_laravel.sql" ]; then
+    echo "📥 Importation de zygnixis_laravel.sql..."
+    sudo mysql $DB_NAME < zygnixis_laravel.sql
+    echo "✅ Données importées !"
+else
+    echo "⚠️ Aucun fichier zygnixis_laravel.sql trouvé dans le dossier actuel."
+fi
+
+# 5. Dépendances Laravel
+echo "⚙️ Installation des dépendances Laravel via Composer..."
+composer install --optimize-autoloader --no-dev
+
+# 6. Configuration de l'environnement (.env)
+if [ ! -f ".env" ]; then
+    echo "📄 Création du fichier .env..."
+    cp .env.example .env
+    php artisan key:generate
+    echo "N'oubliez pas d'ouvrir le fichier .env pour régler APP_ENV=production et APP_DEBUG=false"
+fi
+
+# 7. Permissions importantes pour Laravel
+echo "🔐 Configuration des permissions pour storage/ et bootstrap/cache/..."
+sudo chown -R www-data:www-data storage bootstrap/cache
+sudo chmod -R 775 storage bootstrap/cache
+
+echo ""
+echo "🎉 Déploiement terminé avec succès !"
+echo ""
+echo "PROCHAINES ÉTAPES :"
+echo "1. Configurez Nginx (dans /etc/nginx/sites-available/) pour pointer vers le dossier 'public' de ce projet."
+echo "2. Vérifiez que votre fichier '.env' a les bons accès à la base de données."

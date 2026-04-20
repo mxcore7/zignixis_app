@@ -22,6 +22,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
+# Fix Git safe directory issue
+RUN git config --global --add safe.directory /var/www/html
+
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
@@ -31,11 +34,15 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 # Install Node.js & build assets
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install \
-    && npm run build \
-    && rm -rf node_modules \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y nodejs
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+RUN rm -rf node_modules
 
 # Expose port
 EXPOSE 9000

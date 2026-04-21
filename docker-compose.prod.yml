@@ -28,6 +28,8 @@ services:
     restart: always
     ports:
       - "80:80"
+    volumes:
+      - storage_data:/var/www/html/public/storage
     networks:
       - zygnixis_network
     depends_on:

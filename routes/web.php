@@ -49,7 +49,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('team-members', App\Http\Controllers\Admin\TeamMemberController::class)->middleware('permission:edit_team');
         Route::resource('odoo-modules', App\Http\Controllers\Admin\OdooModuleController::class)->middleware('permission:edit_odoo_modules');
         Route::resource('realizations', App\Http\Controllers\Admin\RealizationController::class)->middleware('permission:edit_realizations');
-        Route::resource('media', App\Http\Controllers\Admin\MediaController::class)->except(['show', 'create', 'edit'])->middleware('permission:admin');
+        Route::resource('media', App\Http\Controllers\Admin\MediaController::class)->except(['show', 'create', 'edit'])->parameters(['media' => 'media'])->middleware('permission:admin');
         Route::resource('leads', App\Http\Controllers\Admin\LeadController::class)->middleware('permission:admin');
     
         // Support Management

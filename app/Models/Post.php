@@ -18,6 +18,7 @@ class Post extends Model
         'content',
         'excerpt',
         'category_id',
+        'author_id',
         'featured_image',
         'is_published',
         'published_at',

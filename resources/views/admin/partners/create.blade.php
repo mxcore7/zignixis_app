@@ -61,7 +61,7 @@
                         <!-- Is Active -->
                         <div class="relative flex items-start">
                             <div class="flex h-6 items-center">
-                                <input id="is_active" name="is_active" type="checkbox" checked
+                                <input id="is_active" name="is_active" type="checkbox" value="1" checked
                                     class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600">
                             </div>
                             <div class="ml-3 text-sm leading-6">

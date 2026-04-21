@@ -40,6 +40,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
         
+        Route::resource('post-categories', App\Http\Controllers\Admin\CategoryController::class)->except(['show'])->middleware('permission:edit_blog');
         Route::resource('posts', App\Http\Controllers\Admin\PostController::class)->middleware('permission:edit_blog');
         Route::resource('projects', App\Http\Controllers\Admin\ProjectController::class)->middleware('permission:edit_projects');
         Route::resource('users', App\Http\Controllers\Admin\UserController::class)->middleware('permission:edit_users');

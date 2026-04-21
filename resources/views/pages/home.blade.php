@@ -35,7 +35,7 @@
     <section class="py-12 bg-white border-b border-gray-100">
         <div class="container-custom">
             <p class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-8">{{ __('Ils nous font confiance') }}</p>
-            <div class="flex flex-wrap justify-center gap-8 lg:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-300">
+            <div class="flex flex-wrap justify-center gap-8 lg:gap-16">
                 @forelse($partners as $partner)
                     <div class="h-12 w-32 flex items-center justify-center">
                         @if($partner->logo)

@@ -43,7 +43,7 @@ class Partner extends Model
             return null;
         }
         
-        $url = \Illuminate\Support\Facades\Storage::url($this->logo);
+        $url = \Illuminate\Support\Facades\Storage::disk('public')->url($this->logo);
         
         // Add cache-busting parameter based on file modification time
         try {

@@ -6,9 +6,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
             </div>
-            <h2 class="text-3xl font-display font-bold text-gray-900 mb-4">Demande envoyée avec succès !</h2>
-            <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">Merci pour votre confiance. Notre équipe étudie votre demande et vous contactera dans les plus brefs délais avec une proposition adaptée.</p>
-            <a href="{{ route('home') }}" class="inline-block bg-primary-600 text-white font-bold py-3 px-8 rounded-full hover:bg-primary-500 transition-colors">Retour à l'accueil</a>
+            <h2 class="text-3xl font-display font-bold text-gray-900 mb-4">{{ __('Demande envoyée avec succès !') }}</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">{{ __('Merci pour votre confiance. Notre équipe étudie votre demande et vous contactera dans les plus brefs délais avec une proposition adaptée.') }}</p>
+            <a href="{{ route('home') }}" class="inline-block bg-primary-600 text-white font-bold py-3 px-8 rounded-full hover:bg-primary-500 transition-colors">{{ __('Retour à l\'accueil') }}</a>
         </div>
     @else
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
@@ -16,8 +16,8 @@
             <div class="bg-gray-50 border-b border-gray-100 p-4 sm:p-6">
                 <div class="mb-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-sm font-bold text-gray-900">Étape {{ $step }} sur 6</span>
-                        <span class="text-sm font-medium text-gray-500">{{ round(($step / 6) * 100) }}% complété</span>
+                        <span class="text-sm font-bold text-gray-900">{{ __('Étape') }} {{ $step }} {{ __('sur') }} 6</span>
+                        <span class="text-sm font-medium text-gray-500">{{ round(($step / 6) * 100) }}% {{ __('complété') }}</span>
                     </div>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
@@ -30,7 +30,7 @@
 
                 <!-- STEP 1: Nature du projet -->
                 <div class="{{ $step == 1 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">1. Quelle est la nature de votre projet ?</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('1. Quelle est la nature de votre projet ?') }}</h3>
                     
                     <div class="space-y-6">
                         <div>
@@ -61,7 +61,7 @@
 
                 <!-- STEP 2: Timeline -->
                 <div class="{{ $step == 2 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">2. Quel est le délai souhaité ?</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('2. Quel est le délai souhaité ?') }}</h3>
                     
                     <div class="space-y-8">
                         <div>
@@ -103,7 +103,7 @@
 
                 <!-- STEP 3: Budget interactif -->
                 <div class="{{ $step == 3 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">3. Quel est le budget estimé pour ce projet ?</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('3. Quel est le budget estimé pour ce projet ?') }}</h3>
                     
                     <div class="space-y-10" x-data="{ 
                         budgetIndex: 0,
@@ -155,7 +155,7 @@
 
                 <!-- STEP 4: Contexte de l'entreprise -->
                 <div class="{{ $step == 4 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">4. Parlez-nous de votre entreprise</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('4. Parlez-nous de votre entreprise') }}</h3>
                     
                     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                         <div>
@@ -246,7 +246,7 @@
 
                 <!-- STEP 5: Description Détaillée -->
                 <div class="{{ $step == 5 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">5. Description du besoin</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('5. Description du besoin') }}</h3>
                     
                     <div class="space-y-6">
                         <div>
@@ -275,7 +275,7 @@
 
                 <!-- STEP 6: Coordonnées & Engagement -->
                 <div class="{{ $step == 6 ? 'block' : 'hidden' }}">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">6. Vos informations de contact</h3>
+                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-6">{{ __('6. Vos informations de contact') }}</h3>
                     
                     <div class="space-y-6">
                         <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">

@@ -80,10 +80,9 @@
     <section class="py-20 bg-gray-50 border-t border-gray-100">
         <div class="container-custom">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl font-display font-bold text-primary-900 mb-4">Jusqu'à 2x plus rapide au Cameroun !</h2>
+                <h2 class="text-3xl font-display font-bold text-primary-900 mb-4">{{ __("Jusqu'à 2x plus rapide au Cameroun !") }}</h2>
                 <p class="text-gray-600">
-                    Passez à la vitesse supérieure avec Odoo hébergé localement sur nos serveurs à Douala :
-                    <br>plus rapide, plus stable et la garantie que vos données restent proches de vous et de vos collaborateurs.
+                    {!! __('Passez à la vitesse supérieure avec Odoo hébergé localement sur nos serveurs à Douala :<br>plus rapide, plus stable et la garantie que vos données restent proches de vous et de vos collaborateurs.') !!}
                 </p>
             </div>
 
@@ -92,7 +91,7 @@
                     <div class="bg-white rounded-2xl shadow-xl p-8 border {{ $offer->is_featured ? 'border-primary-500 relative transform md:-translate-y-4 shadow-2xl z-10' : 'border-gray-100 hover:shadow-2xl transition-all duration-300' }} flex flex-col items-center text-center">
                         @if($offer->is_featured)
                             <div class="absolute -top-4 inset-x-0 flex justify-center">
-                                <span class="bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wider uppercase">Recommandé</span>
+                                <span class="bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wider uppercase">{{ __('Recommandé') }}</span>
                             </div>
                         @endif
 
@@ -122,7 +121,7 @@
                         <div class="w-full border-t border-dashed border-gray-200 mb-8"></div>
 
                         <div class="flex-grow w-full mb-8">
-                            <h4 class="font-bold text-gray-900 mb-4">Ressources dédiées</h4>
+                            <h4 class="font-bold text-gray-900 mb-4">{{ __('Ressources dédiées') }}</h4>
                             @if($offer->features && count($offer->features) > 0)
                                 <ul class="space-y-3">
                                     @foreach($offer->features as $feature)

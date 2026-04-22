@@ -36,7 +36,7 @@
             <a href="{{ route('contact') }}" class="text-sm font-semibold leading-6 text-gray-900 group">
                 Contact <span aria-hidden="true" class="group-hover:translate-x-1 inline-block transition-transform">&rarr;</span>
             </a>
-            <a href="{{ route('quote.index') }}" class="btn-primary text-sm px-4 py-2 uppercase tracking-wide">DEVIS</a>
+            <a href="{{ route('quote.index') }}" class="btn-primary text-sm px-4 py-2 uppercase tracking-wide">{{ __('DEVIS') }}</a>
         </div>
     </nav>
     
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="py-6">
-                        <a href="{{ route('quote.index') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-bold leading-7 text-primary-600 hover:bg-gray-50 uppercase">Demander un DEVIS</a>
+                        <a href="{{ route('quote.index') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-bold leading-7 text-primary-600 hover:bg-gray-50 uppercase">{{ __('Demander un DEVIS') }}</a>
                     </div>
                 </div>
             </div>

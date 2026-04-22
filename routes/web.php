@@ -21,6 +21,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/realizations', [App\Http\Controllers\RealizationController::class, 'index'])->name('realizations');
 Route::post('/newsletter/subscribe', [App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::get('/devis', [App\Http\Controllers\QuoteController::class, 'index'])->name('quote.index');
 
 // Client Routes
 Route::prefix('client')->name('client.')->middleware(['auth'])->group(function () {
@@ -52,6 +53,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('offers', App\Http\Controllers\Admin\OfferController::class)->middleware('permission:admin');
         Route::resource('media', App\Http\Controllers\Admin\MediaController::class)->except(['show', 'create', 'edit'])->parameters(['media' => 'media'])->middleware('permission:admin');
         Route::resource('leads', App\Http\Controllers\Admin\LeadController::class)->middleware('permission:admin');
+        
+        // Quotes Management
+        Route::middleware(['permission:admin'])->group(function () {
+            Route::resource('quotes', \App\Http\Controllers\Admin\QuoteController::class)->only(['index', 'show', 'destroy']);
+            Route::put('quotes/{quote}/status', [\App\Http\Controllers\Admin\QuoteController::class, 'updateStatus'])->name('quotes.update_status');
+        });
     
         // Support Management
         Route::middleware(['permission:admin'])->group(function () {

@@ -75,6 +75,82 @@
         </div>
     </section>
 
+    <!-- Offers / Pricing Section -->
+    @if(isset($offers) && $offers->count() > 0)
+    <section class="py-20 bg-gray-50 border-t border-gray-100">
+        <div class="container-custom">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-display font-bold text-primary-900 mb-4">Jusqu'à 2x plus rapide au Cameroun !</h2>
+                <p class="text-gray-600">
+                    Passez à la vitesse supérieure avec Odoo hébergé localement sur nos serveurs à Douala :
+                    <br>plus rapide, plus stable et la garantie que vos données restent proches de vous et de vos collaborateurs.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                @foreach($offers as $offer)
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border {{ $offer->is_featured ? 'border-primary-500 relative transform md:-translate-y-4 shadow-2xl z-10' : 'border-gray-100 hover:shadow-2xl transition-all duration-300' }} flex flex-col items-center text-center">
+                        @if($offer->is_featured)
+                            <div class="absolute -top-4 inset-x-0 flex justify-center">
+                                <span class="bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wider uppercase">Recommandé</span>
+                            </div>
+                        @endif
+
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ $offer->name }}</h3>
+                        
+                        <div class="mb-2">
+                            <span class="text-4xl lg:text-5xl font-bold tracking-tight
+                                @switch($offer->color)
+                                    @case('primary') text-blue-500 @break
+                                    @case('secondary') text-teal-500 @break
+                                    @case('accent') text-indigo-500 @break
+                                    @case('orange') text-orange-400 @break
+                                    @case('purple') text-purple-400 @break
+                                    @default text-primary-500
+                                @endswitch
+                            ">{{ number_format($offer->price, 0, ',', ' ') }} {{ $offer->currency }}</span>
+                        </div>
+                        
+                        @if($offer->subtitle)
+                        <div class="text-gray-400 font-medium whitespace-pre-line mb-8 w-full">
+                            {{ str_replace(', ', "\n", $offer->subtitle) }}
+                        </div>
+                        @else
+                        <div class="mb-8"></div>
+                        @endif
+
+                        <div class="w-full border-t border-dashed border-gray-200 mb-8"></div>
+
+                        <div class="flex-grow w-full mb-8">
+                            <h4 class="font-bold text-gray-900 mb-4">Ressources dédiées</h4>
+                            @if($offer->features && count($offer->features) > 0)
+                                <ul class="space-y-3">
+                                    @foreach($offer->features as $feature)
+                                        <li class="font-medium text-gray-800">{{ $feature }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+
+                        <a href="{{ $offer->button_url ?? route('contact') }}" class="w-full py-4 px-8 rounded-full font-bold text-white transition-all transform hover:scale-105
+                            @switch($offer->color)
+                                @case('primary') bg-gray-900 hover:bg-gray-800 @break
+                                @case('secondary') bg-gray-900 hover:bg-gray-800 @break
+                                @case('accent') bg-gray-900 hover:bg-gray-800 @break
+                                @case('orange') bg-gray-900 hover:bg-gray-800 @break
+                                @case('purple') bg-gray-900 hover:bg-gray-800 @break
+                                @default bg-gray-900 hover:bg-gray-800
+                            @endswitch
+                        ">
+                            {{ $offer->button_text }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- Electronic Security Section -->
     <section class="py-20 bg-gray-900 text-white">
         <div class="container-custom">

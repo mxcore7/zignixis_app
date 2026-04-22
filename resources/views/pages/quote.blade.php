@@ -10,11 +10,11 @@
         <div class="absolute inset-y-0 right-1/2 -z-10 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white ring-1 ring-primary-50 shadow-xl shadow-primary-600/10 sm:w-[150%]" aria-hidden="true"></div>
         <div class="container-custom relative z-10">
             <div class="max-w-2xl mx-auto text-center mb-16">
-                <span class="inline-flex items-center rounded-full bg-primary-100 px-3 py-1 text-sm font-semibold text-primary-800 mb-6">
+                <span class="inline-flex items-center rounded-full bg-primary-900/50 px-3 py-1 text-sm font-semibold text-primary-200 ring-1 ring-inset ring-primary-500/20 mb-6">
                     Mise en relation rapide
                 </span>
-                <h1 class="text-4xl font-display font-bold text-gray-900 sm:text-6xl mb-6 tracking-tight">Estimez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">Projet</span></h1>
-                <p class="text-lg leading-8 text-gray-600">
+                <h1 class="text-4xl font-display font-bold text-white sm:text-6xl mb-6 tracking-tight">Estimez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Projet</span></h1>
+                <p class="text-lg leading-8 text-gray-300">
                     Complétez ce formulaire interactif pour nous aider à comprendre votre besoin. Nous vous ferons une proposition technique et financière adaptée sous 48h.
                 </p>
             </div>

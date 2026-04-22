@@ -141,7 +141,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 @foreach(['Fonds propres', 'Subvention / Appui institutionnel', 'Crédit bancaire', 'Non encore défini'] as $funding)
                                 <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none hover:bg-gray-50 {{ $funding_mode == $funding ? 'border-primary-600 ring-2 ring-primary-600' : 'border-gray-300' }}">
-                                    <input type="radio" wire:model="funding_mode" value="{{ $funding }}" class="sr-only">
+                                    <input type="radio" wire:model.live="funding_mode" value="{{ $funding }}" class="sr-only">
                                     <span class="block text-sm font-medium text-gray-900">{{ $funding }}</span>
                                     <svg class="absolute right-4 top-4 h-5 w-5 text-primary-600 {{ $funding_mode == $funding ? 'block' : 'hidden' }}" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
@@ -222,7 +222,7 @@
                                     'Complet (Logiciel à migrer)'
                                 ] as $sys)
                                 <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none hover:bg-gray-50 {{ $existing_system == $sys ? 'border-primary-600 ring-2 ring-primary-600' : 'border-gray-300' }}">
-                                    <input type="radio" wire:model="existing_system" value="{{ $sys }}" class="sr-only">
+                                    <input type="radio" wire:model.live="existing_system" value="{{ $sys }}" class="sr-only">
                                     <span class="block text-sm font-medium text-gray-900 text-center w-full">{{ $sys }}</span>
                                 </label>
                                 @endforeach

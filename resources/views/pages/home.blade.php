@@ -17,7 +17,7 @@
                     {{ __("Zygnixis vous accompagne dans l'optimisation de vos processus métier, la sécurisation de vos infrastructures et le déploiement de solutions technologiques sur mesure.") }}
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('contact') }}" class="btn-secondary text-center">{{ __('Demander une démo') }}</a>
+                    <a href="{{ route('quote.index') }}" class="btn-secondary text-center">{{ __('Demander un DEVIS') }}</a>
                     <a href="{{ route('solutions') }}" class="btn-outline border-white text-white hover:bg-white hover:text-primary-900 text-center">
                         {{ __('Découvrir nos solutions') }}
                     </a>
@@ -138,7 +138,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ route('quote.index') }}" class="btn-primary">{{ __('Demander un DEVIS') }}</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ __('Demander une démo personnalisée') }}</a>
                 </div>
             </div>
         </div>

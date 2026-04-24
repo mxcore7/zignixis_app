@@ -7,7 +7,7 @@
         <div class="container-custom text-center">
             <h1 class="text-4xl lg:text-5xl font-display font-bold mb-6">{{ __('Notre Méthodologie') }}</h1>
             <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                {{ __('Une approche structurée pour garantir le succès de vos projets, de l'analyse à la maintenance.') }}
+                {{ __('Une approche structurée pour garantir le succès de vos projets, de l\'analyse à la maintenance.') }}
             </p>
         </div>
     </section>

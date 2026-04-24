@@ -8,7 +8,7 @@
                     <span class="font-display font-bold text-2xl text-white">Zygnixis</span>
                 </a>
                 <p class="text-sm leading-6 text-gray-300 max-w-sm">
-                    Votre partenaire de confiance pour la transformation digitale, l'intégration Odoo et la sécurité électronique au Cameroun et en Afrique Centrale.
+                    {{ __('Votre partenaire de confiance pour la transformation digitale, l\'intégration Odoo et la sécurité électronique au Cameroun et en Afrique Centrale.') }}
                 </p>
                 <div class="flex space-x-6">
                     @if($globalSettings->get('social_facebook')?->value)
@@ -40,27 +40,27 @@
             <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
                 <div class="md:grid md:grid-cols-2 md:gap-8">
                     <div>
-                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">Solutions</h3>
+                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">{{ __('Solutions') }}</h3>
                         <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Intégration Odoo</a></li>
-                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Développement Web</a></li>
-                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Sécurité Électronique</a></li>
-                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Formation & Support</a></li>
+                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Intégration Odoo') }}</a></li>
+                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Développement Web') }}</a></li>
+                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Sécurité Électronique') }}</a></li>
+                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Formation & Support') }}</a></li>
                         </ul>
                     </div>
                     <div class="mt-10 md:mt-0">
-                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">Entreprise</h3>
+                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">{{ __('Entreprise') }}</h3>
                         <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="{{ route('about') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">À propos</a></li>
-                            <li><a href="{{ route('projects') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Réalisations</a></li>
-                            <li><a href="{{ route('blog') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Blog</a></li>
-                            <li><a href="{{ route('contact') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">Carrières</a></li>
+                            <li><a href="{{ route('about') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('À propos') }}</a></li>
+                            <li><a href="{{ route('projects') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Réalisations') }}</a></li>
+                            <li><a href="{{ route('blog') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Blog') }}</a></li>
+                            <li><a href="{{ route('contact') }}" class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Carrières') }}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 md:gap-8">
                     <div>
-                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">Contact</h3>
+                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">{{ __('Contact') }}</h3>
                         <ul role="list" class="mt-6 space-y-4">
                             @if($globalContactInfo->get('address'))
                                 <li class="text-sm leading-6 text-gray-300">{{ $globalContactInfo->get('address')->getLocalizedValue() }}</li>
@@ -74,14 +74,14 @@
                         </ul>
                     </div>
                     <div class="mt-10 md:mt-0">
-                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">Newsletter</h3>
-                        <p class="mt-2 text-sm text-gray-300">Restez informé de nos dernières actualités.</p>
+                        <h3 class="text-sm font-semibold leading-6 text-white tracking-wider uppercase">{{ __('Newsletter') }}</h3>
+                        <p class="mt-2 text-sm text-gray-300">{{ __('Restez informé de nos dernières actualités.') }}</p>
                         <form action="{{ route('newsletter.subscribe') }}" method="POST" class="mt-4 sm:flex sm:max-w-md">
                             @csrf
                             <label for="email-address" class="sr-only">Adresse email</label>
-                            <input type="email" name="email" id="email-address" autocomplete="email" required class="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:w-64 sm:text-sm sm:leading-6 xl:w-full" placeholder="Entrez votre email">
+                            <input type="email" name="email" id="email-address" autocomplete="email" required class="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:w-64 sm:text-sm sm:leading-6 xl:w-full" placeholder="{{ __('Entrez votre email') }}">
                             <div class="mt-3 sm:ml-3 sm:mt-0 sm:flex-shrink-0">
-                                <button type="submit" class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">S'abonner</button>
+                                <button type="submit" class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">{{ __('S\'abonner') }}</button>
                             </div>
                         </form>
                     </div>
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-            <p class="text-xs leading-5 text-gray-400 text-center">&copy; {{ date('Y') }} Zygnixis SARL. Tous droits réduits. Designed with Laravel.</p>
+            <p class="text-xs leading-5 text-gray-400 text-center">&copy; {{ date('Y') }} Zygnixis SARL. {{ __('Tous droits réduits. Designed with Laravel.') }}</p>
         </div>
     </div>
 </footer>

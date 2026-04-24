@@ -7,15 +7,15 @@
         <div class="container-custom">
             
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h1 class="text-4xl font-display font-bold text-primary-900 mb-4">Contactez-nous</h1>
-                <p class="text-gray-600 text-lg">Vous avez un projet ? Une question ? Notre équipe est à votre écoute pour vous accompagner dans votre transformation digitale.</p>
+                <h1 class="text-4xl font-display font-bold text-primary-900 mb-4">{{ __('Contactez-nous') }}</h1>
+                <p class="text-gray-600 text-lg">{{ __('Vous avez un projet ? Une question ? Notre équipe est à votre écoute pour vous accompagner dans votre transformation digitale.') }}</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-12 items-start">
                 
                 <!-- Contact Info -->
                 <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Nos Coordonnées</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">{{ __('Nos Coordonnées') }}</h2>
                     
                     <div class="space-y-8">
                         <!-- Address -->
@@ -30,7 +30,7 @@
                                     </span>
                                 </div>
                                 <div class="ml-4">
-                                    <h3 class="text-base font-semibold leading-7 text-gray-900">Adresse</h3>
+                                    <h3 class="text-base font-semibold leading-7 text-gray-900">{{ __('Adresse') }}</h3>
                                     <p class="mt-1 text-base leading-6 text-gray-600">
                                         @if(is_array($info->value))
                                             {{ $info->value[app()->getLocale()] ?? $info->value['fr'] ?? '' }}
@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                                 <div class="ml-4">
-                                    <h3 class="text-base font-semibold leading-7 text-gray-900">Téléphone</h3>
+                                    <h3 class="text-base font-semibold leading-7 text-gray-900">{{ __('Téléphone') }}</h3>
                                     @foreach($phones as $info)
                                         <p class="mt-1 text-base leading-6 text-gray-600">{{ $info->value }}</p>
                                     @endforeach
@@ -78,7 +78,7 @@
                                     </span>
                                 </div>
                                 <div class="ml-4">
-                                    <h3 class="text-base font-semibold leading-7 text-gray-900">Email</h3>
+                                    <h3 class="text-base font-semibold leading-7 text-gray-900">{{ __('Email') }}</h3>
                                     @foreach($emails as $info)
                                         <p class="mt-1 text-base leading-6 text-gray-600">{{ $info->value }}</p>
                                     @endforeach

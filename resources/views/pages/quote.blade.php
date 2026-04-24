@@ -29,7 +29,7 @@
                             </svg>
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-red-800">Il y a des erreurs dans votre formulaire. Veuillez vérifier vos saisies aux étapes précédentes.</h3>
+                            <h3 class="text-sm font-medium text-red-800">{{ __('Il y a des erreurs dans votre formulaire. Veuillez vérifier vos saisies aux étapes précédentes.') }}</h3>
                         </div>
                     </div>
                 </div>

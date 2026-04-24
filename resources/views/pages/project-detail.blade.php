@@ -16,18 +16,18 @@
                 <div class="container-custom pb-12">
                     <a href="{{ route('projects') }}" class="text-gray-300 hover:text-white mb-4 inline-flex items-center text-sm font-semibold transition-colors">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        Retour aux réalisations
+                        {{ __('Retour aux réalisations') }}
                     </a>
                     <div class="flex items-center gap-4 mb-4">
                         <span class="bg-secondary-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">{{ $project->sector }}</span>
                         <span class="text-gray-300 text-sm date flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            {{ $project->published_at ? $project->published_at->format('M Y') : 'Récent' }}
+                            {{ $project->published_at ? $project->published_at->format('M Y') : __('Récent') }}
                         </span>
                     </div>
                     <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-2">{{ $project->title }}</h1>
                     @if($project->client_name)
-                        <p class="text-xl text-gray-300">Client : {{ $project->client_name }}</p>
+                        <p class="text-xl text-gray-300">{{ __('Client :') }} {{ $project->client_name }}</p>
                     @endif
                 </div>
             </div>
@@ -38,16 +38,16 @@
                 <div class="grid lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-2 prose prose-lg prose-indigo max-w-none">
                         
-                        <h3>Le Contexte</h3>
+                        <h3>{{ __('Le Contexte') }}</h3>
                         <p>{{ $project->description }}</p>
 
                         @if($project->solution)
-                            <h3>La Solution Apportée</h3>
+                            <h3>{{ __('La Solution Apportée') }}</h3>
                             <p>{{ $project->solution }}</p>
                         @endif
 
                         @if($project->results)
-                            <h3>Les Résultats</h3>
+                            <h3>{{ __('Les Résultats') }}</h3>
                             <p>{{ $project->results }}</p>
                         @endif
 
@@ -61,16 +61,16 @@
                         @endif
 
                         <div class="bg-primary-900 text-white p-6 rounded-xl">
-                            <h4 class="font-bold text-lg mb-4">Besoin d'une solution similaire ?</h4>
-                            <p class="text-gray-300 text-sm mb-6">Nos experts sont prêts à étudier votre projet.</p>
-                            <a href="{{ route('contact') }}" class="block w-full text-center bg-white text-primary-900 font-bold py-2 rounded shadow hover:bg-gray-100 transition-colors">Contacter nous</a>
+                            <h4 class="font-bold text-lg mb-4">{{ __('Besoin d\'une solution similaire ?') }}</h4>
+                            <p class="text-gray-300 text-sm mb-6">{{ __('Nos experts sont prêts à étudier votre projet.') }}</p>
+                            <a href="{{ route('contact') }}" class="block w-full text-center bg-white text-primary-900 font-bold py-2 rounded shadow hover:bg-gray-100 transition-colors">{{ __('Contacter nous') }}</a>
                         </div>
                     </div>
                 </div>
 
                 @if(!empty($project->images) && count($project->images) > 0)
                     <div class="mt-16">
-                        <h2 class="text-2xl font-bold font-display text-gray-900 mb-8">Galerie</h2>
+                        <h2 class="text-2xl font-bold font-display text-gray-900 mb-8">{{ __('Galerie') }}</h2>
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($project->images as $image)
                                 <div class="rounded-lg overflow-hidden shadow-sm h-64 bg-gray-100">

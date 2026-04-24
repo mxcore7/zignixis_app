@@ -4,27 +4,27 @@
         <button @click="filter = 'all'; $wire.setFilter('all')" 
             :class="filter === 'all' ? 'bg-primary-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
             class="px-6 py-2 rounded-full font-semibold transition-all duration-300">
-            Tous
+            {{ __('Tous') }}
         </button>
         <button @click="filter = 'Industrie'; $wire.setFilter('Industrie')"
             :class="filter === 'Industrie' ? 'bg-primary-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
             class="px-6 py-2 rounded-full font-semibold transition-all duration-300">
-            Industrie
+            {{ __('Industrie') }}
         </button>
         <button @click="filter = 'Finance'; $wire.setFilter('Finance')"
             :class="filter === 'Finance' ? 'bg-primary-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
             class="px-6 py-2 rounded-full font-semibold transition-all duration-300">
-            Finance
+            {{ __('Finance') }}
         </button>
         <button @click="filter = 'Transport'; $wire.setFilter('Transport')"
             :class="filter === 'Transport' ? 'bg-primary-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
             class="px-6 py-2 rounded-full font-semibold transition-all duration-300">
-            Transport
+            {{ __('Transport') }}
         </button>
         <button @click="filter = 'Autre'; $wire.setFilter('Autre')"
             :class="filter === 'Autre' ? 'bg-primary-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
             class="px-6 py-2 rounded-full font-semibold transition-all duration-300">
-            Autre
+            {{ __('Autre') }}
         </button>
     </div>
 
@@ -47,13 +47,13 @@
                 <div class="p-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $project->title }}</h3>
                     <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ Str::limit($project->description, 100) }}</p>
-                    <a href="{{ route('projects.show', $project->slug) }}" class="text-secondary-600 font-semibold text-sm hover:text-secondary-700">Voir les détails &rarr;</a>
+                    <a href="{{ route('projects.show', $project->slug) }}" class="text-secondary-600 font-semibold text-sm hover:text-secondary-700">{!! __('Lire la suite &rarr;') !!}</a>
                 </div>
             </div>
         @empty
             <div class="col-span-full text-center py-12 text-gray-500">
                 <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <p>Aucun projet trouvé pour cette catégorie.</p>
+                <p>{{ __('Aucun projet trouvé pour cette catégorie.') }}</p>
             </div>
         @endforelse
     </div>

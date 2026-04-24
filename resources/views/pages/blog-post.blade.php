@@ -24,7 +24,7 @@
                 </div>
                 <div class="hidden sm:flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    {{ ceil(str_word_count(strip_tags($post->content)) / 200) }} min de lecture
+                    {{ ceil(str_word_count(strip_tags($post->content)) / 200) }} {{ __('min de lecture') }}
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
         <!-- Sidebar (Share) -->
         <div class="lg:col-span-1 hidden lg:block">
             <div class="sticky top-24 flex flex-col gap-4 items-center">
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest vertical-rl mb-4">Partager</span>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest vertical-rl mb-4">{{ __('Partager') }}</span>
                 <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-sm">
                     <span class="sr-only">Facebook</span>
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
@@ -69,7 +69,7 @@
     @if(isset($relatedPosts) && $relatedPosts->count() > 0)
     <section class="bg-gray-50 py-16 border-t border-gray-200">
         <div class="container-custom">
-            <h2 class="text-2xl font-bold text-gray-900 mb-8">Articles Similaires</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-8">{{ __('Articles Similaires') }}</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($relatedPosts as $related)
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -82,7 +82,7 @@
                             <h3 class="font-bold text-lg mb-2 leading-tight">
                                 <a href="{{ route('blog.show', $related->slug) }}" class="hover:text-primary-600 transition-colors">{{ $related->title }}</a>
                             </h3>
-                            <a href="{{ route('blog.show', $related->slug) }}" class="text-sm text-primary-600 font-semibold mt-2 inline-block">Lire la suite &rarr;</a>
+                            <a href="{{ route('blog.show', $related->slug) }}" class="text-sm text-primary-600 font-semibold mt-2 inline-block">{!! __('Lire la suite &rarr;') !!}</a>
                         </div>
                     </div>
                 @endforeach

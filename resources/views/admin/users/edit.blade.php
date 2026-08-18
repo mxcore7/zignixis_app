@@ -73,7 +73,7 @@
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                         <div class="relative flex items-start">
                             <div class="flex h-6 items-center">
-                                <input id="is_active" name="is_active" type="checkbox" {{ old('is_active', $user->is_active) ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600">
+                                <input id="is_active" name="is_active" type="checkbox" value="1" {{ old('is_active', $user->is_active) ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600">
                             </div>
                             <div class="ml-3 text-sm leading-6">
                                 <label for="is_active" class="font-medium text-gray-900">Activer l'utilisateur</label>

@@ -30,7 +30,7 @@ class RealizationController extends Controller
             'image' => 'required|image|max:2048',
             'details' => 'nullable|array',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -49,7 +49,7 @@ class RealizationController extends Controller
             'image' => $validated['image'],
             'details' => $validated['details'] ?? [],
             'order' => $validated['order'] ?? 0,
-            'is_active' => $request->has('is_active'),
+            'is_active' => $request->boolean('is_active'),
         ]);
 
         return redirect()->route('admin.realizations.index')
@@ -71,7 +71,7 @@ class RealizationController extends Controller
             'image' => 'nullable|image|max:2048',
             'details' => 'nullable|array',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $updateData = [
@@ -85,7 +85,7 @@ class RealizationController extends Controller
             ],
             'details' => $validated['details'] ?? [],
             'order' => $validated['order'] ?? 0,
-            'is_active' => $request->has('is_active'),
+            'is_active' => $request->boolean('is_active'),
         ];
 
         if ($request->hasFile('image')) {

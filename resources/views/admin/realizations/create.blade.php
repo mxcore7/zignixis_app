@@ -80,13 +80,16 @@
                         <!-- Is Active -->
                         <div class="relative flex items-start">
                             <div class="flex h-6 items-center">
-                                <input id="is_active" name="is_active" type="checkbox" checked
+                                <input id="is_active" name="is_active" type="checkbox" value="1" {{ old('is_active', true) ? 'checked' : '' }}
                                     class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600">
                             </div>
                             <div class="ml-3 text-sm leading-6">
                                 <label for="is_active" class="font-medium text-gray-900">Actif</label>
                                 <p class="text-gray-500">La réalisation sera visible sur le site</p>
                             </div>
+                            @error('is_active')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>

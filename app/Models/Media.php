@@ -59,4 +59,9 @@ class Media extends Model
     {
         return $query->where('category', $category);
     }
+
+    public function scopeCategory($query, $category)
+    {
+        return $query->where('category', $category);
+    }
 }

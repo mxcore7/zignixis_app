@@ -122,13 +122,12 @@
                 @foreach($teamMembers as $member)
                     <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm group">
                         <div class="h-64 bg-gray-300 relative overflow-hidden">
-                            @if($member->photo)
-                                <img src="{{ asset('storage/' . $member->photo) }}" alt="{{ $member->name }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">
-                                    <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                </div>
-                            @endif
+                            <img
+                                src="{{ $member->photo_url }}"
+                                alt="{{ $member->name }}"
+                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+                                onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($member->name) }}&size=200&background=0f172a&color=ffffff&bold=true'"
+                            >
                         </div>
                         <div class="p-6">
                             <h3 class="font-bold text-xl text-gray-900">{{ $member->name }}</h3>

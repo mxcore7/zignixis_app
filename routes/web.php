@@ -54,6 +54,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('media', App\Http\Controllers\Admin\MediaController::class)->except(['show', 'create', 'edit'])->parameters(['media' => 'media'])->middleware('permission:admin');
         Route::resource('leads', App\Http\Controllers\Admin\LeadController::class)->middleware('permission:admin');
         
+        // Notifications
+        Route::get('notifications', [App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
+        Route::post('notifications/mark-all-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+        Route::match(['get', 'post'], 'notifications/{notification}/read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
+        Route::delete('notifications/{notification}', [App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('notifications.destroy');
+        
         // Quotes Management
         Route::middleware(['permission:admin'])->group(function () {
             Route::resource('quotes', \App\Http\Controllers\Admin\QuoteController::class)->only(['index', 'show', 'destroy']);

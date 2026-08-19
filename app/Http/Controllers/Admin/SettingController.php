@@ -17,7 +17,20 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        foreach ($request->except('_token', '_method') as $key => $value) {
+        // Handle translatable footer description specifically
+        if ($request->has('footer_description_fr') || $request->has('footer_description_en')) {
+            $footerSetting = Setting::where('key', 'footer_description')->first();
+            if ($footerSetting) {
+                $footerSetting->update([
+                    'value' => [
+                        'fr' => $request->input('footer_description_fr', ''),
+                        'en' => $request->input('footer_description_en', ''),
+                    ]
+                ]);
+            }
+        }
+
+        foreach ($request->except('_token', '_method', 'footer_description_fr', 'footer_description_en') as $key => $value) {
             $setting = Setting::where('key', $key)->first();
             
             if (!$setting) {
@@ -34,14 +47,14 @@ class SettingController extends Controller
             }
 
             // Handle translatable fields
-            if ($setting->type === 'translatable_text') {
+            if ($setting->type === 'translatable_text' && is_array($value)) {
                 $value = [
-                    'fr' => $request->input($key . '_fr', ''),
-                    'en' => $request->input($key . '_en', ''),
+                    'fr' => $value['fr'] ?? '',
+                    'en' => $value['en'] ?? '',
                 ];
             }
 
-            $setting->update(['value' => $value]);
+            $setting->update(['value' => $value ?? '']);
         }
 
         return redirect()->route('admin.settings.index')
@@ -51,18 +64,18 @@ class SettingController extends Controller
     public function updateSocial(Request $request)
     {
         $validated = $request->validate([
-            'social_facebook' => 'nullable|url',
-            'social_linkedin' => 'nullable|url',
-            'social_twitter' => 'nullable|url',
-            'social_instagram' => 'nullable|url',
-            'social_youtube' => 'nullable|url',
+            'social_facebook' => 'nullable|string',
+            'social_linkedin' => 'nullable|string',
+            'social_twitter' => 'nullable|string',
+            'social_instagram' => 'nullable|string',
+            'social_youtube' => 'nullable|string',
         ]);
 
         foreach ($validated as $key => $value) {
             Setting::updateOrCreate(
                 ['key' => $key],
                 [
-                    'value' => $value,
+                    'value' => $value ?? '',
                     'type' => 'text',
                     'group' => 'social',
                 ]

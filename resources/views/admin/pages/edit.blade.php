@@ -36,7 +36,7 @@
                     <div>
                         <label for="content" class="block text-sm font-medium leading-6 text-gray-900">Contenu</label>
                         <div class="mt-2">
-                             <x-translatable-textarea name="content" id="content" rows="15" :wysiwyg="true">{{ old('content', $page->getTranslations('content') ?? []) }}</x-translatable-textarea>
+                             <x-translatable-textarea name="content" id="content" rows="15" :wysiwyg="true" :value="old('content', $page->getTranslations('content') ?? [])" />
                         </div>
                     </div>
                 </div>
@@ -71,14 +71,14 @@
                             <div>
                                 <label for="meta_description" class="block text-sm font-medium leading-6 text-gray-700">Méta Description</label>
                                 <div class="mt-1">
-                                    <x-translatable-textarea name="meta_description" id="meta_description" rows="3">{{ old('meta_description', $page->getTranslations('meta_description') ?? []) }}</x-translatable-textarea>
+                                    <x-translatable-textarea name="meta_description" id="meta_description" rows="3" :value="old('meta_description', $page->getTranslations('meta_description') ?? [])" />
                                 </div>
                             </div>
 
                             <div>
                                 <label for="meta_keywords" class="block text-sm font-medium leading-6 text-gray-700">Mots-clés</label>
                                 <div class="mt-1">
-                                    <x-translatable-textarea name="meta_keywords" id="meta_keywords" rows="2">{{ old('meta_keywords', $page->getTranslations('meta_keywords') ?? []) }}</x-translatable-textarea>
+                                    <x-translatable-textarea name="meta_keywords" id="meta_keywords" rows="2" :value="old('meta_keywords', $page->getTranslations('meta_keywords') ?? [])" />
                                 </div>
                             </div>
                         </div>

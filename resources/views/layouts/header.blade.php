@@ -27,10 +27,10 @@
 
         <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4 items-center">
             <!-- Language Switcher -->
-            <div class="flex items-center gap-2 mr-2">
-                <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() == 'fr' ? 'text-primary-600 font-bold' : 'text-gray-500 hover:text-gray-900' }} text-sm">FR</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() == 'en' ? 'text-primary-600 font-bold' : 'text-gray-500 hover:text-gray-900' }} text-sm">EN</a>
+            <div class="inline-flex items-center gap-1 bg-gray-100 border border-gray-200 rounded-full px-2.5 py-1 ml-2">
+                <a href="{{ route('lang.switch', 'fr') }}" class="{{ app()->getLocale() == 'fr' ? 'bg-white text-primary-700 shadow-sm font-bold' : 'text-gray-500 hover:text-gray-900' }} text-xs rounded-full px-2 py-0.5 transition-all duration-150">FR</a>
+                <span class="text-gray-300 text-xs">|</span>
+                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() == 'en' ? 'bg-white text-primary-700 shadow-sm font-bold' : 'text-gray-500 hover:text-gray-900' }} text-xs rounded-full px-2 py-0.5 transition-all duration-150">EN</a>
             </div>
 
             <a href="{{ route('contact') }}" class="text-sm font-semibold leading-6 text-gray-900 group">

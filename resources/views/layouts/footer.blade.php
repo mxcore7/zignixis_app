@@ -52,16 +52,16 @@
                             {{ __('Solutions') }}
                         </h3>
                         <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="#"
+                            <li><a href="{{ route('solutions') }}"
                                     class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Intégration Odoo') }}</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="{{ route('solutions') }}"
                                     class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Développement Web') }}</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="{{ route('expertise') }}"
                                     class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Sécurité Électronique') }}</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="{{ route('contact') }}"
                                     class="text-sm leading-6 text-gray-300 hover:text-white transition-colors">{{ __('Formation & Support') }}</a>
                             </li>
                         </ul>

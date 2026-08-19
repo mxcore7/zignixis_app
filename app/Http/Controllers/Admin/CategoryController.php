@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $data = [
             'slug' => $validated['slug'],
             'name' => ['fr' => $validated['name']['fr'], 'en' => $validated['name']['en'] ?? $validated['name']['fr']],
-            'description' => ['fr' => $description['fr'] ?? null, 'en' => $description['en'] ?? null],
+            'description' => ['fr' => $validated['description']['fr'] ?? null, 'en' => $validated['description']['en'] ?? null],
         ];
 
         Category::create($data);

@@ -32,6 +32,8 @@ class PostController extends Controller
             'content.en' => 'nullable',
             'featured_image' => 'nullable|image|max:2048',
             'published_at' => 'nullable|date',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
         ]);
 
         $data = [
@@ -42,6 +44,8 @@ class PostController extends Controller
             'title' => ['fr' => $validated['title']['fr'], 'en' => $validated['title']['en'] ?? $validated['title']['fr']],
             'excerpt' => ['fr' => $validated['excerpt']['fr'], 'en' => $validated['excerpt']['en'] ?? null],
             'content' => ['fr' => $validated['content']['fr'], 'en' => $validated['content']['en'] ?? null],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
         ];
 
         if ($request->hasFile('featured_image')) {
@@ -81,6 +85,8 @@ class PostController extends Controller
             'content.en' => 'nullable',
             'featured_image' => 'nullable|image|max:2048',
             'published_at' => 'nullable|date',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
         ]);
 
         $data = [
@@ -90,6 +96,8 @@ class PostController extends Controller
             'title' => ['fr' => $validated['title']['fr'], 'en' => $validated['title']['en'] ?? $validated['title']['fr']],
             'excerpt' => ['fr' => $validated['excerpt']['fr'], 'en' => $validated['excerpt']['en'] ?? null],
             'content' => ['fr' => $validated['content']['fr'], 'en' => $validated['content']['en'] ?? null],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
         ];
 
         if ($request->hasFile('featured_image')) {
